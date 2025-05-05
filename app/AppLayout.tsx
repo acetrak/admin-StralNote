@@ -4,7 +4,14 @@ import { AppstoreOutlined, MailOutlined, SettingOutlined, SmileOutlined } from '
 import { CSSProperties, useState } from 'react';
 import { useLocation, useNavigate } from '@remix-run/react';
 import Icon from '@mdi/react';
-import { mdiChevronDown, mdiChevronLeft, mdiChevronRight, mdiImageFilterDrama } from '@mdi/js';
+import {
+  mdiAccountCircleOutline,
+  mdiChevronDown,
+  mdiChevronLeft,
+  mdiChevronRight,
+  mdiCog,
+  mdiImageFilterDrama, mdiLogin
+} from '@mdi/js';
 import { motion } from 'motion/react';
 import { cn } from '~/utils';
 import userLogo from '~/assets/human.png'
@@ -14,45 +21,7 @@ type MenuItem = Required<MenuProps>['items'][number];
 const { useToken } = theme;
 
 
-const items: MenuItem[] = [
-  {
-    key: 'g1',
-    label: (
-      <><p className="text-lg !text-black font-bold">菜单</p></>
-    ),
-    type: 'group',
-    children: [
-      {
-        label: '仪表板',
-        key: 'dashboard',
-        icon: <MailOutlined />,
-      },
-      {
-        label: '订单',
-        key: 'order',
-        icon: <AppstoreOutlined />,
-      },
-    ],
 
-  },
-  {
-    key: 'g2',
-    label: (
-      <><p className="text-lg !text-black font-bold">归类</p></>
-    ),
-    type: 'group',
-    children: [
-      {
-        label: 'Navigation Three - Submenu',
-        key: 'SubMenu',
-        icon: <SettingOutlined />,
-
-      },
-    ]
-  }
-
-
-];
 
 const colorPrimary = '#3466FF';
 
@@ -81,6 +50,46 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     setCollapsed(!collapsed);
   };
 
+  const items: MenuItem[] = [
+    {
+      key: 'g1',
+      label: (
+        <><p className={cn(' !text-black font-bold', collapsed?'text-sm':'text-lg')}>菜单</p></>
+      ),
+      type: 'group',
+      children: [
+        {
+          label: '仪表板',
+          key: 'dashboard',
+          icon: <MailOutlined />,
+        },
+        {
+          label: '订单',
+          key: 'order',
+          icon: <AppstoreOutlined />,
+        },
+      ],
+
+    },
+    {
+      key: 'g2',
+      label: (
+        <><p className={cn(' !text-black font-bold', collapsed?'text-sm':'text-lg')}>归类</p></>
+      ),
+      type: 'group',
+      children: [
+        {
+          label: 'Navigation Three - Submenu',
+          key: 'SubMenu',
+          icon: <SettingOutlined />,
+
+        },
+      ]
+    }
+
+
+  ];
+
   return (
     <ConfigProvider
       theme={{
@@ -95,7 +104,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <header className={cn('flex items-center h-20 relative',collapsed?'px-2':'px-4')}>
             <Icon path={mdiImageFilterDrama} size={collapsed?1.5:2} style={{ color: token.colorPrimary }} />
             <p className={cn('text-lg text-zinc-800 font-bold pl-4',collapsed?'hidden':'inline-block')}>StralNote</p>
-            <motion.button onClick={toggleCollapsed} style={{ backgroundColor: token.colorPrimary }} className="shadow-sm absolute right-0 top-1/2 w-[30px] h-[30px] rounded-full translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
+            <motion.button onClick={toggleCollapsed} style={{ backgroundColor: token.colorPrimary }} className="shadow-sm absolute z-20 right-0 top-1/2 w-[30px] h-[30px] rounded-full translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
               <Icon path={collapsed?mdiChevronRight:mdiChevronLeft} size={1} color="#fff" />
             </motion.button>
           </header>
@@ -129,11 +138,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
         </motion.aside>
 
-        <main className=" ">
-          <header className="h-20 bg-white flex px-6"  >
+        <main className="h-full flex flex-col overflow-y-auto">
+          <header className="h-20 bg-white flex px-6 xl:px-12 sticky top-0 z-10"  >
             <UserProfile className="ml-auto" style={{'--ant-popover-inner-padding':0} as CSSProperties}/>
           </header>
-          <div className="mx-6">
+          <div className="mx-6 xl:mx-12 flex-1 min-h-0 flex-shrink-0 ">
             {children}
           </div>
         </main>
@@ -147,21 +156,21 @@ function UserProfile({className,style}:{className?:string,style?:CSSProperties})
   const items: MenuProps['items'] = [
     {
       key: '1',
-      label: '个人账号'
+      label: (<div className="flex items-center"><Icon path={mdiAccountCircleOutline} size={1} /><span className="ml-2">个人账号</span></div>)
     },
     {
       key: '2',
-      label: '设置',
+      label: (<div className="flex items-center"><Icon path={mdiCog} size={1} /><span className="ml-2">设置</span></div>),
     },
     {
       key: '3',
-      label:'退出登录'
+      label:(<div className="flex items-center"><Icon path={mdiLogin} size={1} /><span className="ml-2">退出登录</span></div>)
     }
   ];
   const content =(
-    <>
+    <div className="min-w-[200px]">
     <Menu selectedKeys={[]} items={items} style={{border:'none'}} ></Menu>
-    </>
+    </div>
   )
 
   return (

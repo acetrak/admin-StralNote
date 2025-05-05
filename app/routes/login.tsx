@@ -35,7 +35,7 @@ function Login() {
       <div className="px-8 flex flex-col justify-center">
 
         <div className="">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-xl mx-auto">
             <h1 className="text-5xl font-bold text-center pb-4">StralNote</h1>
             <Form
               name="loginForm"

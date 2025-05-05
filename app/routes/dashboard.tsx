@@ -8,13 +8,6 @@ import { cn } from '~/utils';
 
 const { getDesignToken, useToken } = theme;
 
-export const meta: MetaFunction = () => {
-  return [
-    { title: 'New Remix App' },
-    { name: 'description', content: 'Welcome to Remix!' },
-  ];
-};
-
 
 export default function Dashboard() {
   return (
@@ -63,27 +56,48 @@ function Count() {
   const { token } = useToken();
 
   return (
-    <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 xl:gap-6">
-      {
-        data.map((item, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.2 }}
-            className={cn(' rounded-lg shadow-sm py-7 px-5 text-gray-600',index===0?'!text-white':'')}
-            style={{backgroundColor:index===0 ?token.colorPrimary:'#fff'}}
-          >
+   <>
 
-            <div className="flex items-center gap-4 justify-between mb-2">
-              <p className="text-base font-bold">{item.title}</p>
-              <item.icon color={index===0?'#fff':token.colorPrimary}/>
-            </div>
-            <h1 className="text-2xl font-bold">{item.value.toLocaleString()}</h1>
-          </motion.div>
-        ))
-      }
-    </div>
+     <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 xl:gap-6">
+       {
+         data.map((item, index) => (
+           <motion.div
+             key={index}
+             initial={{ opacity: 0, y: 100 }}
+             animate={{ opacity: 1, y: 0 }}
+             transition={{ duration: 0.5, delay: index * 0.2 }}
+             className={cn(' rounded-lg shadow-sm py-7 px-5 text-gray-600',index===0?'!text-white':'')}
+             style={{backgroundColor:index===0 ?token.colorPrimary:'#fff'}}
+           >
+
+             <div className="flex items-center gap-4 justify-between mb-2">
+               <p className="text-base font-bold">{item.title}</p>
+               <item.icon color={index===0?'#fff':token.colorPrimary}/>
+             </div>
+             <h1 className="text-2xl font-bold">{item.value.toLocaleString()}</h1>
+           </motion.div>
+         ))
+       }
+     </div>
+
+     <div className="grid grid-cols-1 xl:grid-cols-[7fr_4fr] mt-6 gap-4 xl:gap-8 xl:grid-rows-2">
+
+       <DashCard index={0}></DashCard>
+       <DashCard index={1}></DashCard>
+       <DashCard index={2}></DashCard>
+       <DashCard index={3}></DashCard>
+
+     </div>
+   </>
   );
+}
+
+function DashCard({children,index=0}:{children?:React.ReactNode,index?:number}) {
+  return (
+    <motion.div  initial={{ opacity: 0, y: 100 }}
+                 animate={{ opacity: 1, y: 0 }}
+                 transition={{ duration: 0.5, delay: (index+4) * 0.2 }} className="dashcard">{children}
+    </motion.div>
+  )
 }
 
