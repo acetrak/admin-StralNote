@@ -42,22 +42,22 @@ function Count() {
     {
       title: '总收入',
       value: 232670,
-      icon: <Icon className="text-blue-500" path={mdiWalletBifoldOutline} size={1.3} />
+      icon: (props:{color?:string})=> <Icon className="text-blue-500" style={{ ...(props.color ? { color: props.color } : undefined) }} path={mdiWalletBifoldOutline} size={1.3} />
     },
     {
       title: '总支出',
       value: 143200,
-      icon: <Icon className="text-blue-500" path={mdiWalletOutline} size={1.3} />
+      icon: ()=><Icon className="text-blue-500" path={mdiWalletOutline} size={1.3} />
     },
     {
       title: '引导对话',
       value: 23420,
-      icon: <Icon className="text-blue-500" path={mdiWalletGiftcard} size={1.3} />
+      icon: ()=><Icon className="text-blue-500" path={mdiWalletGiftcard} size={1.3} />
     },
     {
       title: '本月目标',
       value: 900000,
-      icon: <Icon className="text-blue-500" path={mdiCalendarMonth} size={1.3} />
+      icon: ()=><Icon className="text-blue-500" path={mdiCalendarMonth} size={1.3} />
     },
   ];
   const { token } = useToken();
@@ -76,7 +76,8 @@ function Count() {
           >
 
             <div className="flex items-center gap-4 justify-between mb-2">
-              <p className="text-base font-bold">{item.title}</p>{item.icon}
+              <p className="text-base font-bold">{item.title}</p>
+              <item.icon color={index===0?'#fff':token.colorPrimary}/>
             </div>
             <h1 className="text-2xl font-bold">{item.value.toLocaleString()}</h1>
           </motion.div>
