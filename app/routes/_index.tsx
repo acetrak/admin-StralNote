@@ -1,17 +1,16 @@
 import type { MetaFunction } from "@remix-run/node";
-
-export const meta: MetaFunction = () => {
-  return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
-  ];
-};
+import { Outlet, useNavigate } from '@remix-run/react';
+import { useEffect } from "react";
 
 export default function Index() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate("/dashboard");
+  }, []);
   return (
-    <div>
-      Index
-    </div>
-  );
+    <>
+    <Outlet></Outlet>
+    </>
+  )
 }
 

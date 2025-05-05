@@ -1,21 +1,20 @@
 import workspaceSvg from '~/assets/undraw_workspace_s6wf.svg';
 import { Button, Checkbox, Divider, Form, Input } from 'antd';
-import {useState} from 'react';
+import { useState } from 'react';
 import { BookOutlined } from '@ant-design/icons';
-import { useNavigate } from "@remix-run/react";
+import { useNavigate } from '@remix-run/react';
 
 function Login() {
   const [form] = Form.useForm();
 
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const onFinish = ()=>{
+  const onFinish = () => {
     setLoading(true);
     setTimeout(() => {
-      setLoading(false);
-      navigate('/')
+      navigate('/');
     }, 2000);
-  }
+  };
 
   return (
     <div className="h-screen bg-[#fff] grid grid-cols-[1fr_1fr]">
@@ -23,7 +22,7 @@ function Login() {
       <div className="bg-[#E7EAF9] flex flex-col pr-6">
         <div className="ml-auto w-fit flex-col flex gap-4 pt-[3rem] pr-12">
           <div className="flex items-center gap-4 justify-end pb-4">
-            <BookOutlined className="text-4xl"/><p className="text-4xl font-bold">StralNote学院</p>
+            <BookOutlined className="text-4xl" /><p className="text-4xl font-bold">StralNote学院</p>
           </div>
           <p className="text-right text-xl text-gray-500">灵感随记，条理清晰，高效成就每一天</p>
           <p className="text-right text-xl text-gray-500">笔记有序，学习工作都高效</p>
@@ -45,7 +44,7 @@ function Login() {
               form={form}
               onFinish={onFinish}
               autoComplete="off"
-              initialValues={{ username: 'admin',password:'admin' }}
+              initialValues={{ username: 'admin', password: 'admin' }}
             >
 
               <Form.Item label="账号" name="username">
@@ -60,7 +59,7 @@ function Login() {
                 <Button type="link">忘记密码</Button>
               </div>
               <Form.Item label={null}>
-                <Button loading={loading} block type="primary"  htmlType="submit">登录</Button>
+                <Button loading={loading} block type="primary" htmlType="submit">登录</Button>
               </Form.Item>
             </Form>
 
